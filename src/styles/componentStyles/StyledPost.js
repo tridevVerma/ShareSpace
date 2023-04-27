@@ -4,7 +4,7 @@ const StyledPost = styled.div`
   background-color: var(--bg-main);
   border-radius: 20px;
   padding: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
     rgba(0, 0, 0, 0.05) 0px 5px 10px;
   > .heading {
@@ -102,19 +102,25 @@ const StyledPost = styled.div`
 
     .action-btns {
       margin-top: 1rem;
-      padding-top: 1rem;
       border-top: 1px solid var(--time);
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       place-items: center;
 
       a {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
         color: var(--text-sub);
         font-weight: 500;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 5px;
+
+        &:active {
+          box-shadow: var(--clicked-effect-2);
+        }
 
         > i {
           font-size: 1.5rem;

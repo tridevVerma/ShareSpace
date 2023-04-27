@@ -1,4 +1,5 @@
 import { API_URLS, LOCALSTORAGE_TOKEN_KEY } from '../../utils';
+import { getFormBody } from '../../utils';
 
 const customFetch = async (url, { body, ...customConfig }) => {
   const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
@@ -20,7 +21,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   };
 
   if (body) {
-    config.body = JSON.stringify(body);
+    config.body = getFormBody(body);
   }
 
   try {
@@ -47,5 +48,12 @@ const customFetch = async (url, { body, ...customConfig }) => {
 export const getPosts = (page, limit) => {
   return customFetch(API_URLS.posts((page = 1), (limit = 5)), {
     method: 'get',
+  });
+};
+
+export const signin = (userData) => {
+  return customFetch(API_URLS.signIn(), {
+    method: 'post',
+    body: userData,
   });
 };

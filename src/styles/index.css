@@ -12,6 +12,12 @@
   --sub-heading: #a1aebe;
   --time: #afb9c6;
   --notify-sub: #ff4154;
+
+  --clicked-effect-1: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+
+  --clicked-effect-2: inset -2px 4px 4px 1px rgba(230, 230, 245, 1),
+    inset -2px 5px 16px 0px rgba(230, 230, 245, 0.5);
 }
 
 * {

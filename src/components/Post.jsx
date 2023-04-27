@@ -34,18 +34,18 @@ const Post = () => {
             {post.postedAt}{' '}
             <span>
               {post.user.lock ? (
-                <i class="fa-solid fa-lock"></i>
+                <i className="fa-solid fa-lock"></i>
               ) : (
-                <i class="fa-solid fa-earth-americas"></i>
+                <i className="fa-solid fa-earth-americas"></i>
               )}
             </span>{' '}
           </p>
         </div>
         <a href="/" id="bookmark">
-          <i class="fa-regular fa-bookmark"></i>
+          <i className="fa-regular fa-bookmark"></i>
         </a>
         <a href="/" id="expand-post-header">
-          <i class="fa-solid fa-ellipsis"></i>
+          <i className="fa-solid fa-ellipsis"></i>
         </a>
       </div>
 
@@ -66,7 +66,7 @@ const Post = () => {
       <div className="footer">
         <div className="display-count">
           <div className="like-count">
-            <i class="fa-solid fa-thumbs-up"></i>
+            <i className="fa-solid fa-thumbs-up"></i>
             <span>{post.likeCount}</span>
           </div>
           <div className="comment-count">
@@ -83,15 +83,15 @@ const Post = () => {
 
         <div className="action-btns">
           <a href="/" className="like">
-            <i class="fa-regular fa-thumbs-up"></i>
+            <i className="fa-regular fa-thumbs-up"></i>
             <span>Like</span>
           </a>
           <a href="/" className="comment">
-            <i class="fa-regular fa-comment"></i>
+            <i className="fa-regular fa-comment"></i>
             <span>Comment</span>
           </a>
           <a href="/" className="share">
-            <i class="fa-light fa-share"></i>
+            <i className="fa-light fa-share"></i>
             <span>Share</span>
           </a>
         </div>

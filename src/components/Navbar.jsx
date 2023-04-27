@@ -1,40 +1,41 @@
 import React from 'react';
 import StyledNavbar from '../styles/componentStyles/StyledNavbar';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <StyledNavbar>
       <ul>
         <li className="brand">
-          <a href="/">
+          <NavLink to="/">
             <div className="logo-container">
               <img src={require('../assets/images/logo.png')} alt="logo" />
             </div>
             <span>Sharespace</span>
-          </a>
+          </NavLink>
         </li>
 
         <li>
-          <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+          <i className="fa-sharp fa-solid fa-magnifying-glass"></i>
           <input
             type="text"
             name="search-input"
-            id="search-input"
+            id="search-freind"
             placeholder="Search..."
           />
         </li>
 
         <li>
-          <a href="/" className="signin">
+          <NavLink to="/signin" className="signin">
             Login
-          </a>
+          </NavLink>
         </li>
 
         <li>
-          <a href="/" className="signup">
-            <i class="fa-solid fa-user-plus"></i>
+          <NavLink to="/" className="signup">
+            <i className="fa-solid fa-user-plus"></i>
             <span>Signup</span>
-          </a>
+          </NavLink>
         </li>
       </ul>
     </StyledNavbar>

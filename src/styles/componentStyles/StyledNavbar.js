@@ -59,8 +59,7 @@ const StyledNavbar = styled.nav`
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 
         &:focus {
-          box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
-            rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+          box-shadow: var(--clicked-effect);
         }
       }
 
@@ -83,8 +82,7 @@ const StyledNavbar = styled.nav`
         }
 
         &:active {
-          box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
-            rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+          box-shadow: var(--clicked-effect);
         }
       }
 
