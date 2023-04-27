@@ -71,7 +71,7 @@ const StyledNavbar = styled.nav`
         color: var(--bg-sub);
         border-radius: 16px;
         background-color: var(--primary-main);
-
+        transition: 0.2s all ease-out;
         &:hover {
           box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
         }
