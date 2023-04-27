@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&family=Raleway:wght@100;200;300;400;500;600;700&display=swap');
+
+:root {
+  --bg-main: #fcfcfd;
+  --bg-sub: #f9fafb;
+  --text-main: #1d3a5f;
+  --text-sub: #49607e;
+  --logo-bg: #eff4fc;
+  --icon: #abb9c9;
+  --search-box: #f4f5f8;
+  --primary-main: #1877f2;
+  --sub-heading: #a1aebe;
+  --time: #afb9c6;
+  --notify-sub: #ff4154;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -5,11 +21,30 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+i {
+  color: var(--icon);
 }
 
 code {

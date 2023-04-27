@@ -1,7 +1,9 @@
+import { Navbar } from './';
+
 function App() {
   return (
     <div className="App">
-      <h1>App Component</h1>
+      <Navbar />
     </div>
   );
 }
