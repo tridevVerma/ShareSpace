@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledSignin = styled.div`
+const StyledSignup = styled.div`
   width: 100%;
   height: 90vh;
   background-color: var(--logo-bg);
@@ -29,7 +29,7 @@ const StyledSignin = styled.div`
       padding: 2vw;
 
       > .brand-logo img {
-        width: 150px;
+        width: 120px;
         margin-bottom: 1.5rem;
       }
       > h1 {
@@ -96,46 +96,15 @@ const StyledSignin = styled.div`
           }
         }
 
-        .forget-password-container {
-          width: 100%;
-          display: flex;
+        > div.name-fields {
+          display: grid;
+          grid-template-columns: 48% 48%;
+
           justify-content: space-between;
-          align-items: center;
-          margin: 1rem auto;
-          color: var(--icon);
-
-          > div {
-            > input {
-              &:hover {
-                cursor: pointer;
-                color: var(--text-sub);
-              }
-
-              &:checked + label {
-                color: var(--text-sub);
-              }
-            }
-
-            > label {
-              margin-left: 12px;
-              &:hover {
-                cursor: pointer;
-                color: var(--text-sub);
-              }
-            }
-          }
-
-          > a {
-            color: var(--primary-main);
-            font-weight: 700;
-            &:hover {
-              cursor: pointer;
-            }
-          }
         }
 
         > button {
-          margin-top: 0.5rem;
+          margin-top: 1rem;
           background-color: var(--primary-main);
           color: var(--bg-main);
           padding: 12px 24px;
@@ -191,4 +160,4 @@ const StyledSignin = styled.div`
   }
 `;
 
-export default StyledSignin;
+export default StyledSignup;

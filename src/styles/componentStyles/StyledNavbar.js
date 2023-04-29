@@ -23,11 +23,11 @@ const StyledNavbar = styled.nav`
 
         > .logo-container {
           background-color: var(--logo-bg);
-          padding: 10px;
+          padding: 10px 16px;
           border-radius: 15px;
           margin-right: 1.5rem;
           > img {
-            width: 60px;
+            width: 50px;
           }
         }
 
@@ -64,7 +64,8 @@ const StyledNavbar = styled.nav`
       }
 
       .signin,
-      .signup {
+      .signup,
+      .logout {
         padding: 15px 40px;
         font-size: 1.5rem;
         color: var(--bg-sub);
@@ -94,6 +95,13 @@ const StyledNavbar = styled.nav`
           color: var(--bg-sub);
           margin-right: 1rem;
         }
+      }
+
+      .username {
+        font-size: 1.5rem;
+        color: var(--text-main);
+        margin-left: 1.8rem;
+        margin-right: 1.8rem;
       }
     }
   }

@@ -1,8 +1,11 @@
 import React from 'react';
 import StyledNavbar from '../styles/componentStyles/StyledNavbar';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../hooks';
 
 const Navbar = () => {
+  const auth = useAuth();
+
   return (
     <StyledNavbar>
       <ul>
@@ -25,18 +28,33 @@ const Navbar = () => {
           />
         </li>
 
-        <li>
-          <NavLink to="/signin" className="signin">
-            Login
-          </NavLink>
-        </li>
+        {auth.user ? (
+          <>
+            <li>
+              <h1 className="username">{auth.user.firstname}</h1>
+            </li>
+            <li>
+              <NavLink to="/" onClick={auth.logout} className="logout">
+                Logout
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <NavLink to="/signin" className="signin">
+                Login
+              </NavLink>
+            </li>
 
-        <li>
-          <NavLink to="/" className="signup">
-            <i className="fa-solid fa-user-plus"></i>
-            <span>Signup</span>
-          </NavLink>
-        </li>
+            <li>
+              <NavLink to="/signup" className="signup">
+                <i className="fa-solid fa-user-plus"></i>
+                <span>Signup</span>
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
     </StyledNavbar>
   );

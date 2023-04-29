@@ -57,3 +57,10 @@ export const signin = (userData) => {
     body: userData,
   });
 };
+
+export const register = (userData) => {
+  return customFetch(API_URLS.signUp(), {
+    method: 'post',
+    body: userData,
+  });
+};
