@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledSignin = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   background-color: var(--logo-bg);
   display: flex;
   justify-content: center;
@@ -17,7 +17,7 @@ const StyledSignin = styled.div`
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
     border-radius: 30px;
     overflow: hidden;
-
+    margin-top: 10vh;
     .signin-form-container {
       justify-self: flex-end;
       width: 100%;

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const StyledNavbar = styled.nav`
   background-color: var(--bg-main);
   width: 100%;
-  position: sticky;
+  position: fixed;
+  z-index: 100;
   top: 0%;
   left: 0%;
   padding: 1rem 1.5rem;

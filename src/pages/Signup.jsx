@@ -57,23 +57,23 @@ const Signup = ({ notify }) => {
   };
   return (
     <StyledSignup>
-      <div className="signin-container">
+      <div className="signup-container">
         <div className="img-container">
           <img src={require('../assets/images/signup.png')} alt="login" />
         </div>
-        <div className="signin-form-container">
+        <div className="signup-form-container">
           <div className="brand-logo">
             <img src={require('../assets/images/logo.png')} alt="logo" />
           </div>
 
-          <button className="google-login-btn">
+          <button className="google-signup-btn">
             <img
               src={require('../assets/images/google.png')}
               alt="google-logo"
             />
             <span>Signup with google</span>
           </button>
-          <div className="login-divider">or signup with email</div>
+          <div className="signup-divider">or signup with email</div>
           <form onSubmit={handleSubmit}>
             <div className="name-fields">
               <input

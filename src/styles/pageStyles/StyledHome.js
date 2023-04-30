@@ -7,6 +7,7 @@ const StyledHome = styled.main`
   padding: 2.5rem;
   > .posts-container {
     width: 50vw;
+    margin-top: 12vh;
     margin-left: auto;
     margin-right: auto;
   }

@@ -1,6 +1,6 @@
 import Home from './Home';
 import Signin from './Signin';
-import Page404 from './Page404';
 import Signup from './Signup';
-
-export { Home, Signin, Signup, Page404 };
+import Profile from './Profile';
+import Page404 from './Page404';
+export { Home, Signin, Signup, Profile, Page404 };

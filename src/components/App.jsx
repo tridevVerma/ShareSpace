@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar, Loader } from './';
-import { Home, Signin, Signup, Page404 } from '../pages';
+import { Home, Signin, Signup, Page404, Profile } from '../pages';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,6 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<Signin notify={notify} />} />
             <Route path="/signup" element={<Signup notify={notify} />} />
+            <Route path="/profile" element={<Profile notify={notify} />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
         )}

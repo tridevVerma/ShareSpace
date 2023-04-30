@@ -31,7 +31,9 @@ const Navbar = () => {
         {auth.user ? (
           <>
             <li>
-              <h1 className="username">{auth.user.firstname}</h1>
+              <NavLink to="/profile">
+                <h1 className="username">{auth.user.firstname}</h1>
+              </NavLink>
             </li>
             <li>
               <NavLink to="/" onClick={auth.logout} className="logout">

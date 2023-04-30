@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 const StyledSignup = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   background-color: var(--logo-bg);
   display: flex;
   justify-content: center;
   align-items: center;
 
-  .signin-container {
+  .signup-container {
     width: 80%;
     height: 80%;
     display: grid;
@@ -17,8 +17,8 @@ const StyledSignup = styled.div`
     box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
     border-radius: 30px;
     overflow: hidden;
-
-    .signin-form-container {
+    margin-top: 10vh;
+    .signup-form-container {
       justify-self: flex-end;
       width: 100%;
       height: 100%;
@@ -38,7 +38,7 @@ const StyledSignup = styled.div`
         font-size: 2.5vw;
       }
 
-      .google-login-btn {
+      .google-signup-btn {
         width: 25vw;
         padding: 12px;
         font-size: 1.5rem;
@@ -53,7 +53,7 @@ const StyledSignup = styled.div`
         }
       }
 
-      .login-divider {
+      .signup-divider {
         width: 25vw;
         display: flex;
         align-items: center;
@@ -66,18 +66,18 @@ const StyledSignup = styled.div`
         color: var(--time);
       }
 
-      .login-divider::before,
-      .login-divider::after {
+      .signup-divider::before,
+      .signup-divider::after {
         content: '';
         flex: 1;
         border-bottom: 1px solid var(--time);
       }
 
-      .login-divider:not(:empty)::before {
+      .signup-divider:not(:empty)::before {
         margin-right: 10px;
       }
 
-      .login-divider:not(:empty)::after {
+      .signup-divider:not(:empty)::after {
         margin-left: 10px;
       }
 
