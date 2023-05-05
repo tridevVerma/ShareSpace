@@ -1,9 +1,9 @@
 import React from 'react';
 import StyledLoader from '../styles/componentStyles/StyledLoader';
 
-const Loader = () => {
+const Loader = ({ bg, color }) => {
   return (
-    <StyledLoader>
+    <StyledLoader bg={bg} color={color}>
       <div className="spinner"></div>
     </StyledLoader>
   );

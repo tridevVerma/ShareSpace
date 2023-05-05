@@ -6,8 +6,7 @@ export const API_URLS = {
   posts: (page, limit) => `${API_ROOT}/posts?page=${page}&limit=${limit}`,
   createPost: (content) => `${API_ROOT}/posts/create`,
   deletePost: (postId) => `${API_ROOT}/posts/delete-post?postId=${postId}`,
-  createFreindship: (userId) =>
-    `${API_ROOT}/freindship/create-freindship?userId=${userId}`,
+
   freinds: () => `${API_ROOT}/freindship/fetch-user-freinds`,
   removeFreind: (userId) =>
     `${API_ROOT}/freindship/remove-freindship?userId:${userId}`,
@@ -19,6 +18,17 @@ export const API_URLS = {
   editUser: () => `${API_ROOT}/users/edit`,
   userInfo: (userId) => `${API_ROOT}/users/info?userId=${userId}`,
   searchUsers: (searchText) => `${API_ROOT}/users/search?text=${searchText}`,
+  uploadCover: () => `${API_ROOT}/users/upload-cover`,
+  uploadAvatar: () => `${API_ROOT}/users/upload-avatar`,
+  toggleProfileStatus: () => `${API_ROOT}/users/toggle-profile-status`,
+  getAllUsers: () => `${API_ROOT}/users/all`,
+  createFreindship: (userId) =>
+    `${API_ROOT}/freindship/create-freindship?userId=${userId}`,
+  acceptFreindship: (userId) =>
+    `${API_ROOT}/freindship/accept-freindship?userId=${userId}`,
+  rejectFreindship: (userId) =>
+    `${API_ROOT}/freindship/reject-freindship?userId=${userId}`,
 };
 
 export const LOCALSTORAGE_TOKEN_KEY = '__sharespace_token__';
+export const API_PUBLIC = 'http://localhost:8000';

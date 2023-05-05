@@ -31,7 +31,7 @@ const Navbar = () => {
         {auth.user ? (
           <>
             <li>
-              <NavLink to="/profile">
+              <NavLink to="/settings">
                 <h1 className="username">{auth.user.firstname}</h1>
               </NavLink>
             </li>

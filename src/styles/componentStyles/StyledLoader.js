@@ -15,7 +15,7 @@ const StyledLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--logo-bg);
+  background-color: ${(props) => props.bg};
   > .spinner {
     animation: ${rotate360} 1s linear infinite;
     transform: translateZ(0);
@@ -23,7 +23,7 @@ const StyledLoader = styled.div`
     border-top: 2px solid var(--icon);
     border-right: 2px solid var(--icon);
     border-bottom: 2px solid var(--icon);
-    border-left: 4px solid var(--primary-main);
+    border-left: 4px solid ${(props) => props.color};
     background: transparent;
     width: 300px;
     height: 300px;

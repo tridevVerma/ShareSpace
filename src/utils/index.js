@@ -6,6 +6,8 @@ import {
   removeItemFromLocalStorage,
 } from './localStorageHelper.js';
 
+import { getAge, formatBirthday } from './getAge.js';
+
 export {
   API_URLS,
   LOCALSTORAGE_TOKEN_KEY,
@@ -13,4 +15,6 @@ export {
   setItemInLocalStorage,
   getItemFromLocalStorage,
   removeItemFromLocalStorage,
+  getAge,
+  formatBirthday,
 };

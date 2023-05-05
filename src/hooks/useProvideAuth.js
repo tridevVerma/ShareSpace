@@ -1,7 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
 import jwt_decode from 'jwt-decode';
 import { AuthContext } from '../providers';
-import { register, signin } from '../api/v1';
+import {
+  register,
+  signin,
+  editProfile,
+  singleImage,
+  toggleProfileStatus,
+  createFreindship,
+  acceptFreindship,
+  rejectFreindship,
+} from '../api/v1';
 import {
   LOCALSTORAGE_TOKEN_KEY,
   removeItemFromLocalStorage,
@@ -30,7 +39,6 @@ export const useProvideAuth = () => {
     setLoading(false);
 
     if (response.success) {
-      // const payload = jwt_decode(response.data.token);
       return {
         user: response.data,
         success: true,
@@ -49,7 +57,6 @@ export const useProvideAuth = () => {
 
     setLoading(false);
     if (response.success) {
-      console.log(response.data);
       const payload = jwt_decode(response.data.token);
       setUser(payload);
       setItemInLocalStorage(
@@ -66,9 +73,96 @@ export const useProvideAuth = () => {
       };
     }
   };
+
+  const updateUser = async (updates) => {
+    const response = await editProfile(updates);
+
+    if (response.success) {
+      const payload = jwt_decode(response.data.updatedToken);
+      setUser(payload);
+      setItemInLocalStorage(
+        LOCALSTORAGE_TOKEN_KEY,
+        response.data.updatedToken ? response.data.updatedToken : ''
+      );
+      return {
+        success: true,
+      };
+    } else if (response.tokenExpired) {
+      logout();
+    }
+    return {
+      success: false,
+      message: response.message,
+    };
+  };
+
+  const updateImage = async (type, formData) => {
+    const response = await singleImage(type, formData);
+
+    if (response.success) {
+      if (type === 'cover') {
+        setUser({
+          ...user,
+          cover: response.data.uploadedPath,
+        });
+      } else if (type === 'avatar') {
+        setUser({
+          ...user,
+          avatar: response.data.uploadedPath,
+        });
+      }
+
+      return {
+        success: true,
+      };
+    } else if (response.tokenExpired) {
+      logout();
+    }
+    return {
+      success: false,
+      message: response.message,
+    };
+  };
+
+  const toggleProfileLocking = async () => {
+    const response = await toggleProfileStatus();
+
+    if (response.success) {
+      setUser({
+        ...user,
+        lockProfile: !user.lockProfile,
+      });
+      return {
+        success: true,
+      };
+    } else if (response.tokenExpired) {
+      logout();
+    }
+    return {
+      success: false,
+      message: response.message,
+    };
+  };
+
   const logout = () => {
     setUser(null);
     removeItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
+  };
+
+  const addFreind = async (userId) => {
+    const result = await createFreindship(userId);
+    console.log('result', result);
+    if (result.success) {
+      return {
+        success: true,
+      };
+    } else if (result.tokenExpired) {
+      logout();
+    }
+    return {
+      success: false,
+      message: result.message,
+    };
   };
 
   return {
@@ -76,7 +170,11 @@ export const useProvideAuth = () => {
     loading,
     signup,
     login,
+    updateUser,
+    updateImage,
+    toggleProfileLocking,
     logout,
+    addFreind,
   };
 };
 

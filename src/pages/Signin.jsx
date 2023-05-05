@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StyledSignin from '../styles/pageStyles/StyledSignin';
 
 import { useInput, useAuth } from '../hooks';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Signin = ({ notify }) => {
   const email = useInput('');
   const password = useInput('');
   const [signingIn, setSigningIn] = useState(false);
   const auth = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,11 +27,20 @@ const Signin = ({ notify }) => {
     });
     if (result.success) {
       notify('Successfully logged in', 'success', 4000);
+      navigate('/settings');
     } else {
       notify(result.message, 'error', 4000);
     }
     setSigningIn(false);
   };
+
+  useEffect(() => {
+    console.log('signin....');
+    if (auth.user) {
+      return navigate('/');
+    }
+  }, [auth.user, navigate]);
+
   return (
     <StyledSignin>
       <div className="signin-container">

@@ -3,6 +3,7 @@ import { getFormBody } from '../../utils';
 
 const customFetch = async (url, { body, ...customConfig }) => {
   const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
+
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     Accept: 'application/json',
@@ -33,6 +34,12 @@ const customFetch = async (url, { body, ...customConfig }) => {
         data: data.data,
         success: true,
       };
+    } else if (response.status === 400) {
+      return {
+        success: false,
+        message: data.message,
+        tokenExpired: true,
+      };
     }
 
     throw new Error(data.message);
@@ -41,6 +48,42 @@ const customFetch = async (url, { body, ...customConfig }) => {
     return {
       message: err.message,
       success: false,
+    };
+  }
+};
+
+const customFileUpload = async (url, formData) => {
+  const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
+
+  const config = {
+    method: 'POST',
+    body: formData,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await fetch(url, config);
+    const data = await response.json();
+
+    if (data.success) {
+      return {
+        success: true,
+        data: data.data,
+      };
+    } else if (response.status === 400) {
+      return {
+        success: false,
+        message: data.message,
+        tokenExpired: true,
+      };
+    }
+    throw new Error(data.message);
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message,
     };
   }
 };
@@ -62,5 +105,56 @@ export const register = (userData) => {
   return customFetch(API_URLS.signUp(), {
     method: 'post',
     body: userData,
+  });
+};
+
+export const editProfile = (updates) => {
+  return customFetch(API_URLS.editUser(), {
+    method: 'post',
+    body: updates,
+  });
+};
+
+export const toggleProfileStatus = () => {
+  return customFetch(API_URLS.toggleProfileStatus(), {
+    method: 'GET',
+  });
+};
+
+export const singleImage = async (type, content) => {
+  if (type === 'cover') {
+    return customFileUpload(API_URLS.uploadCover(), content);
+  } else if (type === 'avatar') {
+    return customFileUpload(API_URLS.uploadAvatar(), content);
+  }
+};
+
+export const getAllUsers = async () => {
+  return customFetch(API_URLS.getAllUsers(), {
+    method: 'GET',
+  });
+};
+
+export const getProfileInfo = async (userId) => {
+  return customFetch(API_URLS.userInfo(userId), {
+    method: 'GET',
+  });
+};
+
+export const createFreindship = async (userId) => {
+  return customFetch(API_URLS.createFreindship(userId), {
+    method: 'GET',
+  });
+};
+
+export const acceptFreindship = async (userId) => {
+  return customFetch(API_URLS.acceptFreindship(userId), {
+    method: 'GET',
+  });
+};
+
+export const rejectFreindship = async (userId) => {
+  return customFetch(API_URLS.rejectFreindship(userId), {
+    method: 'GET',
   });
 };

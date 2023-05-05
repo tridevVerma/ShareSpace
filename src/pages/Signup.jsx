@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StyledSignup from '../styles/pageStyles/StyledSignup';
 
 import { useInput, useAuth } from '../hooks';
@@ -55,6 +55,13 @@ const Signup = ({ notify }) => {
     }
     setSigningUp(false);
   };
+
+  useEffect(() => {
+    console.log('signup....');
+    if (auth.user) {
+      return navigate('/');
+    }
+  }, [auth.user, navigate]);
   return (
     <StyledSignup>
       <div className="signup-container">
