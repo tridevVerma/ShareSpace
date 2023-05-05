@@ -9,23 +9,72 @@ import { getProfileInfo } from '../api/v1';
 import getImage from '../api/v1/getImage';
 import { useAuth } from '../hooks';
 
+const statusValue = ['Add Freind', 'Requested...', 'Pending...', 'Freinds'];
+
 const Profile = ({ notify }) => {
   const auth = useAuth();
   const [freindshipStatus, setFreindshipStatus] = useState(0);
   const [profileUser, setProfileUser] = useState(null);
+  const [freindsList, setFreindsList] = useState([]);
 
   const params = useParams();
+
+  const getImageFromServer = async (imageLink) => {
+    const imageURL = await getImage(imageLink);
+    if (!imageURL) {
+      notify("Can't get images", 'error');
+      return null;
+    }
+    return imageURL;
+  };
+
+  function getStatus() {
+    console.log(auth.user?.freinds);
+    const currentStatus = auth.user?.freinds.find((frObject) => {
+      if (frObject.freind === profileUser?._id) {
+        return frObject.status;
+      }
+    });
+    console.log('status', currentStatus);
+    if (!currentStatus) {
+      setFreindshipStatus(0);
+      return;
+    }
+
+    setFreindshipStatus(currentStatus);
+  }
 
   const fetchProfile = async () => {
     const response = await getProfileInfo(params.userId);
     if (response.success) {
+      // Populate Profile user data
       const profileUserData = {
         ...response.data.profileData,
         avatar: await getImage(response.data.profileData.avatar),
         cover: await getImage(response.data.profileData.cover),
       };
 
+      // Check freindship status among logged user and profile user
+
+      auth.user?.freinds.forEach((frData) => {
+        if (frData.freind?._id === profileUserData?._id) {
+          setFreindshipStatus(frData.status);
+          return;
+        }
+      });
+
       setProfileUser(profileUserData);
+
+      // Populate profile user's freinds
+      const freindsArray = await Promise.all(
+        profileUserData?.freinds.map(async (frData) => {
+          return {
+            ...frData.freind,
+            avatar: await getImageFromServer(frData.freind.avatar),
+          };
+        })
+      );
+      setFreindsList(freindsArray);
     } else {
       notify(response.message, 'error');
       setProfileUser(null);
@@ -33,9 +82,20 @@ const Profile = ({ notify }) => {
   };
 
   const toggleFreinds = async (e) => {
-    const result = await auth.addFreind(profileUser._id);
+    let result;
+    if (freindshipStatus === 0) {
+      // add freind
+      result = await auth.addFreind(profileUser._id);
+    } else if (freindshipStatus === 1) {
+      // cancel request
+      result = await auth.rejectFreind(profileUser._id);
+    } else if (freindshipStatus === 2) {
+      result = await auth.acceptFreind(profileUser._id);
+    } else if (freindshipStatus === 3) {
+      result = await auth.rejectFreind(profileUser._id);
+    }
     if (result.success) {
-      await fetchProfile();
+      getStatus();
     }
   };
 
@@ -52,7 +112,7 @@ const Profile = ({ notify }) => {
 
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [auth.user]);
 
   return (
     <StyledProfile>
@@ -96,13 +156,15 @@ const Profile = ({ notify }) => {
 
         <div className="make-freinds">
           <button onClick={toggleFreinds}>
-            {freindshipStatus === 3 ? (
+            {freindshipStatus === 3 && (
               <i className="fa-solid fa-user-xmark"></i>
-            ) : (
+            )}
+
+            {freindshipStatus === 0 && (
               <i className="fa-solid fa-user-plus"></i>
             )}
 
-            <span>{freindshipStatus === 3 ? 'Remove' : 'Add'} Freind</span>
+            <span>{statusValue[freindshipStatus]}</span>
           </button>
         </div>
       </div>
@@ -119,7 +181,7 @@ const Profile = ({ notify }) => {
           )}
         </div>
 
-        <Freinds type="freinds" users={[]} />
+        <Freinds type="freinds" users={freindsList} />
       </div>
     </StyledProfile>
   );

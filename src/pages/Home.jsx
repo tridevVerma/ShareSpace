@@ -11,15 +11,6 @@ const Home = ({ notify }) => {
   const auth = useAuth();
   const [allUsers, setAllUsers] = useState([]);
   const [freindsList, setFreindsList] = useState([]);
-  const getFreinds = () => {
-    const data = auth.user?.freinds?.map((user) => {
-      if (user.senderStatus === 3 && user.receiverStatus === 3) {
-        return user.receiver;
-      }
-    });
-    setFreindsList(data);
-    console.log(auth.user?.freinds);
-  };
 
   const getImageFromServer = async (imageLink) => {
     const imageURL = await getImage(imageLink);
@@ -28,6 +19,18 @@ const Home = ({ notify }) => {
       return null;
     }
     return imageURL;
+  };
+
+  const getFreinds = async () => {
+    const freindsArray = await Promise.all(
+      auth.user?.freinds?.map(async (frData) => {
+        return {
+          ...frData.freind,
+          avatar: await getImageFromServer(frData.freind.avatar),
+        };
+      })
+    );
+    setFreindsList(freindsArray);
   };
 
   const gettingUsers = async () => {
@@ -43,7 +46,6 @@ const Home = ({ notify }) => {
         })
       );
 
-      console.log(allUsers);
       setAllUsers(allUsers);
     }
     if (!response.success) {
@@ -53,7 +55,9 @@ const Home = ({ notify }) => {
 
   useEffect(() => {
     gettingUsers();
-    getFreinds();
+    if (auth.user) {
+      getFreinds();
+    }
   }, []);
 
   return (

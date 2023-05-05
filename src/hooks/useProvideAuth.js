@@ -151,8 +151,65 @@ export const useProvideAuth = () => {
 
   const addFreind = async (userId) => {
     const result = await createFreindship(userId);
-    console.log('result', result);
+
     if (result.success) {
+      setUser({
+        ...user,
+        freinds: [
+          ...user.freinds,
+          { freind: result.data.newFreind, status: result.data.status },
+        ],
+      });
+      return {
+        success: true,
+      };
+    } else if (result.tokenExpired) {
+      logout();
+    }
+    return {
+      success: false,
+      message: result.message,
+    };
+  };
+
+  const rejectFreind = async (userId) => {
+    const result = await rejectFreindship(userId);
+
+    if (result.success) {
+      setUser({
+        ...user,
+        freinds: user.freinds.filter((frData) => {
+          return frData.freind._id !== userId;
+        }),
+      });
+
+      return {
+        success: true,
+      };
+    } else if (result.tokenExpired) {
+      logout();
+    }
+    return {
+      success: false,
+      message: result.message,
+    };
+  };
+
+  const acceptFreind = async (userId) => {
+    const result = await acceptFreindship(userId);
+
+    if (result.success) {
+      setUser({
+        ...user,
+        freinds: user.freinds.map((frData) => {
+          if (frData.freind._id === userId) {
+            frData.status = 3;
+            return frData;
+          }
+          return frData;
+        }),
+      });
+
       return {
         success: true,
       };
@@ -175,6 +232,8 @@ export const useProvideAuth = () => {
     toggleProfileLocking,
     logout,
     addFreind,
+    acceptFreind,
+    rejectFreind,
   };
 };
 

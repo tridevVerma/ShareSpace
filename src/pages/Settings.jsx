@@ -33,6 +33,7 @@ const Settings = ({ notify }) => {
   const [uploadingNow, setUploadingNow] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
+  const [freindsList, setFreindsList] = useState([]);
 
   const handleEdit = (e) => {
     let activeEditBtn = document.querySelector(
@@ -133,11 +134,33 @@ const Settings = ({ notify }) => {
     }
   };
 
+  const getFreindsAvatarsFromServer = async (imageLink) => {
+    const imageURL = await getImage(imageLink);
+    if (!imageURL) {
+      notify("Can't get images", 'error');
+      return null;
+    }
+    return imageURL;
+  };
+
+  const getFreinds = async () => {
+    const freindsArray = await Promise.all(
+      auth.user?.freinds?.map(async (frData) => {
+        return {
+          ...frData.freind,
+          avatar: await getFreindsAvatarsFromServer(frData.freind.avatar),
+        };
+      })
+    );
+    setFreindsList(freindsArray);
+  };
+
   useEffect(() => {
     console.log('use-effect');
     if (auth.user) {
       getImageFromServer(auth.user.cover, 'cover');
       getImageFromServer(auth.user.avatar, 'avatar');
+      getFreinds();
     }
   }, [auth.user]);
 
@@ -412,7 +435,7 @@ const Settings = ({ notify }) => {
           </div>
         </div>
 
-        <Freinds type="freinds" users={[]} />
+        <Freinds type="freinds" users={freindsList} />
       </div>
     </StyledSettings>
   );
